@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 
 import { STAR_WARS_PEOPLE_URL } from "../constants/UrlConstants";
 import Loader from './Loader';
+import ErrorPage from './ErrorPage';
 
 function RightAlignedTableCell(props) {
   return <TableCell align='right' {...props}/>
@@ -22,18 +23,27 @@ export default function StarWarsTable() {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     async function getStarWarsPeople(page) {
-      const response = await fetch(`${STAR_WARS_PEOPLE_URL}/?page=${page}`);
-      setData(await response.json());
-      setLoading(false);
+      try {
+        const response = await fetch(`${STAR_WARS_PEOPLE_URL}/?page=${page}`);
+        setData(await response.json());
+        setHasError(false);
+      } catch (error) {
+        console.log('Error occured', error);
+        setHasError(true);
+      } finally {
+        setLoading(false);
+      }
     }
     
     getStarWarsPeople(page + 1);
   }, [page])
 
   function handlePageChange(event, newPage) {
+    event.preventDefault();
     setLoading(true);
     setPage(newPage);
   }
@@ -87,7 +97,10 @@ export default function StarWarsTable() {
 
   return (
     <>
-      {loading ? <Loader /> : renderTable()}
+      {
+        loading
+          ? <Loader />
+          : hasError ? <ErrorPage/> : renderTable()}
     </>
   )
 }
