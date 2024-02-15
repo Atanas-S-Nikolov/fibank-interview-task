@@ -73,6 +73,7 @@ export default function Login() {
           onChange={handleUsernameChange}
           error={usernameError}
           helperText={usernameErrorMessage}
+          required
         />
       </div>
       <div>
@@ -85,6 +86,7 @@ export default function Login() {
           onChange={handlePasswordChange}
           error={passwordError}
           helperText={passwordErrorMessage}
+          required
         />
       </div>
       <Button
