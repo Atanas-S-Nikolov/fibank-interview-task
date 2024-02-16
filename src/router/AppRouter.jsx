@@ -1,11 +1,14 @@
-import { Route, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
+import {
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from "react-router-dom";
 
 import { HOME_URL, TABLE_URL } from "../constants/UrlConstants";
 
 import StarWarsTable from "../components/StarWarsTable";
 import Login from "../components/Login";
 import NotFound from "../components/NotFound";
-
 
 export const appRouter = createBrowserRouter(
   createRoutesFromElements(

@@ -5,3 +5,9 @@
 #title {
   margin-bottom: 1em;
 }
+
+@media (max-width: 650px) {
+  #title {
+    font-size: 1.75rem;
+  }
+}

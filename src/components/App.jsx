@@ -1,19 +1,18 @@
-import '../styles/App.css'
+import "../styles/App.css";
 
-import { RouterProvider } from 'react-router-dom'
-import { appRouter } from '../router/AppRouter'
-import Navbar from './Navbar'
+import { RouterProvider } from "react-router-dom";
+import { appRouter } from "../router/AppRouter";
+import Navbar from "./Navbar";
 
 function App() {
-
   return (
-    <div className='app'>
+    <div className="app">
       <Navbar />
       <main>
-        <RouterProvider router={appRouter}/>
+        <RouterProvider router={appRouter} />
       </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

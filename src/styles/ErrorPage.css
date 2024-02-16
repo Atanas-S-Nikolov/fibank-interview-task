@@ -1,3 +1,20 @@
 #error_image {
   width: 400px;
 }
+
+@media (max-width: 420px) {
+  .alert {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .alert .MuiAlert-action {
+    margin: 0;
+    padding: 0;
+  }
+
+  .alert #reset_btn {
+    margin: 0 auto;
+  }
+}

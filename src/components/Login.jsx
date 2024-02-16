@@ -1,20 +1,20 @@
-import '../styles/Login.css'
+import "../styles/Login.css";
 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { isBlank } from "underscore.string";
-import { TABLE_URL } from '../constants/UrlConstants';
-import { useDispatch } from 'react-redux';
-import { loginReducer } from '../redux/authSlice';
+import { TABLE_URL } from "../constants/UrlConstants";
+import { useDispatch } from "react-redux";
+import { loginReducer } from "../redux/authSlice";
 
 export default function Login() {
-  const [user, setUser] = useState({ username: '', password: '' });
-  const [usernameError, setUsernameError] = useState(false); 
-  const [usernameErrorMessage, setUsernameErrorMessage] = useState(''); 
-  const [passwordError, setPasswordError] = useState(false); 
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+  const [user, setUser] = useState({ username: "", password: "" });
+  const [usernameError, setUsernameError] = useState(false);
+  const [usernameErrorMessage, setUsernameErrorMessage] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -23,16 +23,16 @@ export default function Login() {
     if (!(isBlank(user.username) || isBlank(user.password))) {
       setButtonDisabled(false);
     }
-  }, [user.username, user.password])
+  }, [user.username, user.password]);
 
   function resetUsernameErrorState() {
     setUsernameError(false);
-    setUsernameErrorMessage('');
+    setUsernameErrorMessage("");
   }
 
   function resetPasswordErrorState() {
     setPasswordError(false);
-    setPasswordErrorMessage('');
+    setPasswordErrorMessage("");
   }
 
   function handleUsernameChange(event) {
@@ -41,7 +41,7 @@ export default function Login() {
     const { value } = event.target;
     setUser({ ...user, username: value });
     if (isBlank(value)) {
-      setUsernameErrorMessage('Username is empty' );
+      setUsernameErrorMessage("Username is empty");
       setUsernameError(true);
       setButtonDisabled(true);
       return;
@@ -54,7 +54,7 @@ export default function Login() {
     const { value } = event.target;
     setUser({ ...user, password: value });
     if (isBlank(value)) {
-      setPasswordErrorMessage('Password is empty' );
+      setPasswordErrorMessage("Password is empty");
       setPasswordError(true);
       setButtonDisabled(true);
       return;
@@ -94,13 +94,13 @@ export default function Login() {
         />
       </div>
       <Button
-        id='login_btn'
-        variant='contained'
+        id="login_btn"
+        variant="contained"
         disabled={buttonDisabled}
         onClick={login}
       >
         Login
       </Button>
     </div>
-  )
+  );
 }
