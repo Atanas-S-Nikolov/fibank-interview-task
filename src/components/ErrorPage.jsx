@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { HOME_URL } from "../constants/UrlConstants";
 import errorImage from '../assets/error-svgrepo-com.svg';
 
-export default function ErrorPage() {
+export default function ErrorPage({ error = 'Something went wrong' }) {
   const navigate = useNavigate();
 
   function recoverFromError() {
@@ -24,7 +24,7 @@ export default function ErrorPage() {
           <Button color="error" onClick={recoverFromError}>Reset</Button>
         }
       >
-        Something went wrong. Try clicking the reset button to reload the application.
+        {error}. Try clicking the reset button to reload the application.
       </Alert>
     </>
   )

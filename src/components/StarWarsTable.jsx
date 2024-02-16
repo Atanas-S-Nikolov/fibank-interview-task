@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import { STAR_WARS_PEOPLE_URL } from "../constants/UrlConstants";
 import Loader from './Loader';
 import ErrorPage from './ErrorPage';
+import { useSelector } from 'react-redux';
 
 function RightAlignedTableCell(props) {
   return <TableCell align='right' {...props}/>
@@ -24,6 +25,8 @@ export default function StarWarsTable() {
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState();
+  const { isAuthenticated } = useSelector(state => state.auth);
 
   useEffect(() => {
     async function getStarWarsPeople(page) {
@@ -36,9 +39,15 @@ export default function StarWarsTable() {
         setHasError(true);
       } finally {
         setLoading(false);
+        setErrorMessage(undefined);
       }
     }
-    
+    if (!isAuthenticated) {
+      setLoading(false);
+      setHasError(true);
+      setErrorMessage('You must be logged in')
+      return;
+    }
     getStarWarsPeople(page + 1);
   }, [page])
 
@@ -100,7 +109,8 @@ export default function StarWarsTable() {
       {
         loading
           ? <Loader />
-          : hasError ? <ErrorPage/> : renderTable()}
+          : hasError ? <ErrorPage error={errorMessage}/> : renderTable()
+      }
     </>
   )
 }

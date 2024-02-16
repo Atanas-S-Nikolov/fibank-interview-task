@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { isBlank } from "underscore.string";
 import { TABLE_URL } from '../constants/UrlConstants';
+import { useDispatch } from 'react-redux';
+import { loginReducer } from '../redux/authSlice';
 
 export default function Login() {
   const [user, setUser] = useState({ username: '', password: '' });
@@ -15,6 +17,7 @@ export default function Login() {
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!(isBlank(user.username) || isBlank(user.password))) {
@@ -58,7 +61,8 @@ export default function Login() {
     }
   }
 
-  function navigateToTablePage() {
+  function login() {
+    dispatch(loginReducer());
     navigate(TABLE_URL);
   }
 
@@ -93,7 +97,7 @@ export default function Login() {
         id='login_btn'
         variant='contained'
         disabled={buttonDisabled}
-        onClick={navigateToTablePage}
+        onClick={login}
       >
         Login
       </Button>
